@@ -1,0 +1,54 @@
+/*!
+ * Start Bootstrap - Scrolling Nav (https://startbootstrap.com/template-overviews/scrolling-nav)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-scrolling-nav/blob/master/LICENSE)
+ */
+header {
+  padding: 156px 0 100px;
+}
+
+section {
+  padding: 150px 0;
+}
+
+.mark-completed {
+    color: green !important;
+}
+
+.mark-incompleted {
+    color: red !important;
+}
+
+.delete {
+    color: rosybrown !important;
+}
+
+.edit {
+    color: blue !important;
+}
+
+.bottom-top-margin {
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.no-task {
+    color: grey;
+    font-size: 16px;
+}
+
+.add-task {
+    width: 10%;
+    margin-bottom: 20px;
+}
+
+#name {
+    height: 28px;
+}
+#desc {
+    height: 50px;
+}
+
+.is-danger {
+    color: red;
+}
