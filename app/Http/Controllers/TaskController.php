@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Task;
+use App\User;
+
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -12,11 +15,11 @@ class TaskController extends Controller
     {
         if($var==1)
         {
-            Task::where('id',$id)->update(array('status'=>2));
+            Task::where('id',$id)->update(array('status'=>2, 'completed_at'=>date('Y-m-d h:i:s')));
         }
         else if($var==2)
         {
-            Task::where('id',$id)->update(array('status'=>1));
+            Task::where('id',$id)->update(array('status'=>1, 'completed_at'=>NULL));
         }
         
         return redirect('/home');
@@ -61,8 +64,23 @@ class TaskController extends Controller
         return request()->validate([
             'user_id' => 'required',
             'name' => 'required',
-            'description' => 'nullable'
+            'description' => 'required'
         ]);
+    }
+    
+    public function showShareTask()
+    {
+        return view('task-share');
+    }
+    
+    public function search()
+    {
+        $key = request()->search ;
+        $id = Auth::user()->id;
+        $tasks = User::find($id)->task->where('name', 'like', $key);
+//        dd($tasks);
+        return view('home', compact('tasks'));
+        
     }
     
     

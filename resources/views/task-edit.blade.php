@@ -17,7 +17,7 @@
         </div>
         <div class="form-group col-sm-12">
             <label for="description">Description:</label>
-            <textarea class="form-control" name="description" id="description" placeholder="Add Description...">{{$task->description}}</textarea>
+            <textarea class="form-control" name="description" required id="description" placeholder="Add Description...">{{$task->description}}</textarea>
             @error('description')
             <p class="help is-danger">{{$errors->first('description')}}</p>
             @enderror

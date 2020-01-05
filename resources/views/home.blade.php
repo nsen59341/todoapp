@@ -12,7 +12,17 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <div class="text-left">
+                        <form method="post" action="{{ url('/search') }}">
+                            @csrf
+                            <input type="text" name="search">
+                            <button style="cursor:pointer;" title="search" class="glyphicon glyphicon-search"></button>
+                        </form>
+                    </div>
                     <div class="text-right">
+                        <button type="button" class="btn btn-info btn-sm share-task" title="share task list">
+                            <span class="glyphicon glyphicon-share"></span>
+                        </button>
                         <button type="button" class="btn btn-danger btn-sm add-task" title="add a new task">
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
@@ -30,10 +40,12 @@
                             </tr>
                           </thead>
                           <tbody>
+                             <?php $i = 0 ; ?>
                              @if(!($tasks->isEmpty()))
                                 @foreach( $tasks AS $task )
+                                <?php $i++; ?>
                                     <tr>
-                                     <th scope="row">1</th>
+                                     <th scope="row">{{ $i }}</th>
                                      <td>{{ $task->name }}</td>
                                      <td>{{ $task->description }}</td>
                                      <td>
@@ -61,6 +73,7 @@
                           </tbody>
                         </table>
                       </div>
+                    {{ $tasks->links() }}
                 </div>
             </div>
         </div>
@@ -70,6 +83,10 @@
 
     $(".add-task").click(function() {
        location.href = "/task/add"; 
+    });
+    
+     $(".share-task").click(function() {
+       location.href = "/task/share"; 
     });
 
 </script>

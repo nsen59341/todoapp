@@ -39,22 +39,37 @@
         @if(Route::has('login'))
             <ul class="navbar-nav ml-auto">
               @auth
-                <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="{{ url('/home') }}">Home</a>
+                <li class="nav-item header-right-menu">
+                  <div class="dropdown">
+                    <a class="nav-link js-scroll-trigger dropbtn" href="javascript:void(0);" >
+                        <img src="{{ url('images/' . auth()->user()->profile_pic) }}" height="40px" width="40px;">
+                    </a>
+                    <div class="dropdown-content row">
+                        <center><h2><u>User info</u></h2></center>
+                        <br>
+                       <label class="col-sm-5">Name:</label>
+                       <span class="col-sm-7">{{ auth()->user()->name }}</span> <br>
+                       <label class="col-sm-5">Email:</label>
+                       <span class="col-sm-7">{{ auth()->user()->email }}</span> <br>
+                       <label class="col-sm-5">Join at:</label>
+                       <span class="col-sm-7">{{ auth()->user()->created_at }}</span> <br>
+                       <center><a href="/user/edit/{{ auth()->user()->id }}"><b>Edit</b></a></center>
+                    </div>
+                  </div>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item header-right-menu">
                   <a class="nav-link js-scroll-trigger" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">Logout</a>
+                      document.getElementById('logout-form').submit();" style="margin-top:8px;">Logout</a>
                 </li>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
               @else
-                <li class="nav-item">
+                <li class="nav-item header-right-menu">
                   <a class="nav-link js-scroll-trigger" href="{{ route('login') }}">Login</a>
                 </li>
                 @if(Route::has('register'))
-                  <li class="nav-item">
+                  <li class="nav-item header-right-menu">
                     <a class="nav-link js-scroll-trigger" href="{{ route('register') }}">Register</a>
                   </li>
                 @endif
