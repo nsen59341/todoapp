@@ -73,15 +73,12 @@ class TaskController extends Controller
         return view('task-share');
     }
     
-    public function search()
+    public function shareTask() 
     {
-        $key = request()->search ;
-        $id = Auth::user()->id;
-        $tasks = User::find($id)->task->where('name', 'like', $key);
-//        dd($tasks);
-        return view('home', compact('tasks'));
-        
+        $email = auth()->user()->email ;
+        $tasks = Task::where('user_id', auth()->user()->id)->where('completed_at', NULL)->where('deleted_at', NULL)->get();
+        \Mail::to($email)->send(new \App\Mail\MyMail($tasks));
+        return redirect('/home');
     }
-    
     
 }

@@ -35,13 +35,41 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $key = request()->search ;
         $id = Auth::user()->id;
-        $tasks = User::findorFail($id)->task;
-        $tasks = $this->paginate($tasks,5);
-        $tasks->withPath('home');
-        return view('home', compact('tasks'));
+        $method = request()->method();
+        
+        if( $method == 'GET' )
+        {        
+            $tasks = User::findorFail($id)->task;
+            $tasks = $this->paginate($tasks,5);
+            $tasks->withPath('');
+        }
+        else {
+            $tasks = User::findorFail($id)->task->where('name', 'like', $key);      
+        }
+        $param = 0 ;
+        return view('home', compact(['tasks','method','param']));
         
     }
+    
+    public function categorigeTask($key) 
+    {
+        $id = auth()->user()->id ;
+        $method = request()->method() ;
+        if( !empty($key) )
+        {
+            $tasks = User::findorFail($id)->task->where('status', $key);
+        }
+        else {
+            $tasks = User::findorFail($id)->task;
+        }
+        $tasks = $this->paginate($tasks,5);
+        $tasks->withPath('');
+        $param = $key;
+        return view('home', compact(['tasks','method','param']));
+    }
+  
     
     public function paginate($items, $perPage = 15, $page = null, $baseUrl = null, $options = [])
     {
@@ -60,4 +88,6 @@ class HomeController extends Controller
 
         return $lap;
     }
+    
+    
 }

@@ -13,10 +13,17 @@
                         </div>
                     @endif
                     <div class="text-left">
-                        <form method="post" action="{{ url('/search') }}">
+                        <form method="post" action="{{ url('/home') }}">
                             @csrf
-                            <input type="text" name="search">
+                            <input type="text" name="search" placeholder="search">
                             <button style="cursor:pointer;" title="search" class="glyphicon glyphicon-search"></button>
+                        </form>
+                        <form align="center">
+                            <select name="category" id="category">
+                                <option value="0">All Tasks</option>
+                                <option value="1">Completed Tasks</option>
+                                <option value="2">Pending Tasks</option>
+                            </select>
                         </form>
                     </div>
                     <div class="text-right">
@@ -73,7 +80,9 @@
                           </tbody>
                         </table>
                       </div>
-                    {{ $tasks->links() }}
+                    @if( $method == "GET" )
+                        {{ $tasks->links() }}
+                    @endif
                 </div>
             </div>
         </div>
@@ -88,6 +97,21 @@
      $(".share-task").click(function() {
        location.href = "/task/share"; 
     });
+
+    $("#category").change(function() {
+       var key = $(this).val();
+       location.href = "/home/"+key ; 
+    });
+    
+    $(document).ready(function() {
+        if( {{$param}} )
+        {
+            var key = {{$param}};
+            $("#category option[value="+key+"]").attr('selected',true);      
+        }
+        
+    });
+    
 
 </script>
 @endsection
