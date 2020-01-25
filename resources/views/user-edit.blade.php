@@ -4,27 +4,30 @@
 
 <div class="container bottom-top-margin">
     <center><h1>Edit Task</h1></center>
-    <form method="post" enctype="multipart/form-data" action="{{url('/user/'.$user->id)}}">
-        @csrf
-        @method('put')
+    {!! Form::model($user,['method'=>'PUT', 'action'=>['UserController@update', $user->id], 'files'=>true]) !!}
+    <!--{!! Form::open(['method'=>'PUT', 'url'=>url('/user/'.$user->id), 'files'=>true]) !!}-->
+    @csrf
         <div class="form-group col-sm-12">
-            <center><img src="{{ url( 'images/' . $user->profile_pic ) }}" id="prof_pic" height="50px" width="50px"></center>
-            <label for="description">Upload Profile Picture:</label>
-            <input type="file" name="photo" >
+            <center><img src="{{ url( 'images/' . $user->profile_pic ) }}" id="prof_pic" height="50px" width="50px"><br>
+            <span>As {{$role}}</span>
+            </center>
+            <br>
+            {!! Form::label('upload', 'Upload Photo') !!}
+            {!! Form::file('photo') !!}
             @error('profile_pic')
             <p class="help is-danger">{{$errors->first('profile_pic')}}</p>
             @enderror
         </div>
         <div class="form-group col-sm-12">
-            <label for="Name">Name</label>
-            <input type="name" class="form-control" required name="name" id="name" placeholder="Name" value="{{$user->name}}">
+            {!! Form::label('name', 'Name') !!}
+            {!! Form::text('name', $user->name, ['class'=>'form-control', 'id'=>'name', 'required'=>true, 'placeholder'=>'Name']) !!}
             @error('name')
             <p class="help is-danger">{{$errors->first('name')}}</p>
             @enderror
         </div>
         <div class="form-group col-sm-12">
-            <label for="description">Email:</label>
-            <input type="email" name="email" placeholder="Email" required value="{{ $user->email }}">
+            {!! Form::label('email', 'Email') !!}
+            {!! Form::email('email', $user->email, ['class'=>'form-control', 'id'=>'email', 'required'=>true, 'placeholder'=>'Email']) !!}
             @error('email')
             <p class="help is-danger">{{$errors->first('email')}}</p>
             @enderror

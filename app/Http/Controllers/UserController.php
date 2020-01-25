@@ -18,8 +18,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id) ;
-//        return $user;
-        return view('user-edit', compact('user'));
+        $role = request()->session()->get('role');
+        return view('user-edit', compact(['user','role']));
     }
     
     public function update(User $user) 
@@ -40,8 +40,8 @@ class UserController extends Controller
             {
                 $user->update(['profile_pic'=>$filename]);
              
-                request()->photo->storeAs('images', $filename);
-                
+//                request()->photo->storeAs('images', $filename);
+                $file->move('images', $filename);
 
             }
 

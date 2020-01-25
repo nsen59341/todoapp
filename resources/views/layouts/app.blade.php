@@ -83,8 +83,10 @@
   <header class="bg-primary text-white">
     <div class="container text-center">
       <h1>Welcome to ToDoList App</h1>
+      <b><center>{{ request()->session()->get('msg') }}</center></b><br>
       <p class="lead">List up all your tasks today</p>
     </div>
+      
   </header>
 
   @yield('content')

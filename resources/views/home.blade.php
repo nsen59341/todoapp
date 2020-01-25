@@ -12,6 +12,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    @if(!empty(request()->session()->get('name_err_message')))
+                    <center><font color="red">{{ request()->session()->get('name_err_message') }}</font></center>
+                    @endif
                     <div class="text-left">
                         <form method="post" action="{{ url('/home') }}">
                             @csrf

@@ -4,26 +4,27 @@
 
 <div class="container bottom-top-margin">
     <center><h1>Edit Task</h1></center>
-    <form method="post" action="{{url('/task/'.$task->id)}}">
-        @csrf
-        @method('put')
-        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+    {!! Form::model($task, ['method'=>'put', 'action'=>['TaskController@editTask', $task->id]]) !!}
+    @csrf
+        {!! Form::hidden('user_id', Auth::user()->id ) !!}
         <div class="form-group col-sm-12">
-            <label for="Name">Name</label>
-            <input type="name" class="form-control" required name="name" id="name" placeholder="Name" value="{{$task->name}}">
+            {!! Form::label('name', 'Name') !!}
+            {!! Form::text('name', $task->name, ['class'=>'form-control', 'id'=>'name', 'required'=>true, 'placeholder'=>'Name' ]) !!}
             @error('name')
             <p class="help is-danger">{{$errors->first('name')}}</p>
             @enderror
         </div>
         <div class="form-group col-sm-12">
-            <label for="description">Description:</label>
-            <textarea class="form-control" name="description" required id="description" placeholder="Add Description...">{{$task->description}}</textarea>
+            {!! Form::label('description', 'Description') !!}
+            {!! Form::textarea('description', $task->description, ['class'=>'form-control', 'id'=>'description', 'required'=>true, 'placeholder'=>'Add Description...', 'rows'=>6]) !!}
             @error('description')
             <p class="help is-danger">{{$errors->first('description')}}</p>
             @enderror
         </div>
-        <div align="center"><button type="submit" class="btn btn-info" id="addBtn">Update</button></div>
-    </form>
+        <div align="center">
+            {!! Form::submit('Update', ['class'=>'btn btn-info', 'id'=>'addBtn']) !!}
+        </div>
+    {!! Form::close() !!}
 </div>
 
 @endsection

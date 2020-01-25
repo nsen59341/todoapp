@@ -25,7 +25,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','IsAdmin']);
+       
     }
 
     /**
@@ -38,12 +39,14 @@ class HomeController extends Controller
         $key = request()->search ;
         $id = Auth::user()->id;
         $method = request()->method();
-        
+        request()->session()->put('role', 'admin');
+        request()->session()->flash('msg','Welcome '.auth()->user()->name);
         if( $method == 'GET' )
         {        
             $tasks = User::findorFail($id)->task;
             $tasks = $this->paginate($tasks,5);
             $tasks->withPath('');
+            
         }
         else {
             $tasks = User::findorFail($id)->task->where('name', 'like', $key);      

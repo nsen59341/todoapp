@@ -1,6 +1,7 @@
 <?php
 
 use App\Task;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::any('/home', 'HomeController@index')->name('home')->middleware('verified');
+Route::any('/home/{name_err_message?}', 'HomeController@index')->name('home')->middleware('verified');
 
 Route::get('/home/{key}', 'HomeController@categorigeTask');
 
@@ -44,5 +45,22 @@ Route::get('/user/edit/{id}', 'UserController@edit');
 
 Route::put('/user/{user}', 'UserController@update');
 
+Route::get('/logout', function() {
+    Auth::logout();
+    return redirect('/login');
+});
+
 
 //Route::post('/search', 'HomeController@search');
+
+Route::get('/contact', 'contactController@show');
+
+Route::post('/contact', 'contactController@store');
+
+
+
+Route::get('/payment/create', 'PaymentController@create')->middleware('auth');
+Route::post('/payment', 'PaymentController@store')->middleware('auth');
+
+Route::get('/notification', 'UserNotificationController@show')->middleware('auth');
+

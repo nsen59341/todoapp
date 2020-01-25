@@ -10,6 +10,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
+    public $path = '/images/' ;
     /**
      * The attributes that are mass assignable.
      *
@@ -40,5 +41,23 @@ class User extends Authenticatable implements MustVerifyEmail
     public function task()
     {
         return $this->hasMany('App\Task');
+    }
+    
+    public function getPathAttribute($value)
+    {
+        return "/images/" . $value ;
+    }
+     
+    public function role() 
+    { 
+        return $this->belongsTo('App\Role');   
+    }
+    
+    public function isAdmin() {
+        if($this->role->name == 'admin')
+        {
+            return true;
+        }
+        return false;
     }
 }

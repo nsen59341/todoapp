@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\TaskRequest;
+
 use App\Task;
 use App\User;
 
@@ -11,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
+    public function __construct() {
+        $this->middleware('checkAge');
+    }
+
     public function changeTaskStatus($var, $id)
     {
         if($var==1)
@@ -30,7 +36,7 @@ class TaskController extends Controller
         return view('task-add');
     }
     
-    public function storeNewTask()
+    public function storeNewTask(TaskRequest $request)
     {
         $task = Task::create($this->validateTask());
         $task->save();
