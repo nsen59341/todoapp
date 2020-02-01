@@ -4,5 +4,13 @@
 // Variables
 @import 'variables';
 
+// First need to run command - npm run watch
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+$primary: blue;
+
+body {
+    background-color: $primary;
+}

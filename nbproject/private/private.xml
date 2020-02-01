@@ -6,23 +6,31 @@
             <file>file:/C:/xampp/htdocs/todolist/resources/views/landing.blade.php</file>
             <file>file:/C:/xampp/htdocs/todolist/app/Http/Controllers/HomeController.php</file>
             <file>file:/C:/xampp/htdocs/todolist/app/Http/Kernel.php</file>
-            <file>file:/C:/xampp/htdocs/todolist/app/Role.php</file>
+            <file>file:/C:/xampp/htdocs/todolist/resources/views/admin/users/index.blade.php</file>
             <file>file:/C:/xampp/htdocs/todolist/resources/views/task-edit.blade.php</file>
-            <file>file:/C:/xampp/htdocs/todolist/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/todolist/resources/assets/js/libs/tooltip.min.js</file>
+            <file>file:/C:/xampp/htdocs/todolist/webpack.mix.js</file>
             <file>file:/C:/xampp/htdocs/todolist/app/Http/Controllers/UserController.php</file>
             <file>file:/C:/xampp/htdocs/todolist/resources/views/task-share.blade.php</file>
             <file>file:/C:/xampp/htdocs/todolist/resources/views/notifications/show.blade.php</file>
             <file>file:/C:/xampp/htdocs/todolist/app/Http/Middleware/RoleMiddleware.php</file>
-            <file>file:/C:/xampp/htdocs/todolist/app/User.php</file>
             <file>file:/C:/xampp/htdocs/todolist/app/Http/Requests/TaskRequest.php</file>
+            <file>file:/C:/xampp/htdocs/todolist/public/notes</file>
+            <file>file:/C:/xampp/htdocs/todolist/app/Http/Controllers/UserAdminController.php</file>
+            <file>file:/C:/xampp/htdocs/todolist/resources/views/task-add.blade.php</file>
+            <file>file:/C:/xampp/htdocs/todolist/resources/views/user-edit.blade.php</file>
+            <file>file:/C:/xampp/htdocs/todolist/app/Role.php</file>
+            <file>file:/C:/xampp/htdocs/todolist/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/todolist/resources/assets/js/libs/popper.min.js</file>
+            <file>file:/C:/xampp/htdocs/todolist/app/User.php</file>
             <file>file:/C:/xampp/htdocs/todolist/app/Http/Middleware/IsAdmin.php</file>
             <file>file:/C:/xampp/htdocs/todolist/resources/views/layouts/app.blade.php</file>
+            <file>file:/C:/xampp/htdocs/todolist/resources/views/payments/create.blade.php</file>
             <file>file:/C:/xampp/htdocs/todolist/resources/views/welcome.blade.php</file>
             <file>file:/C:/xampp/htdocs/todolist/app/Http/Controllers/TaskController.php</file>
-            <file>file:/C:/xampp/htdocs/todolist/resources/views/task-add.blade.php</file>
+            <file>file:/C:/xampp/htdocs/todolist/public/js/libs.js</file>
             <file>file:/C:/xampp/htdocs/todolist/resources/views/home.blade.php</file>
             <file>file:/C:/xampp/htdocs/todolist/app/Http/Middleware/checkAge.php</file>
-            <file>file:/C:/xampp/htdocs/todolist/resources/views/user-edit.blade.php</file>
         </group>
     </open-files>
 </project-private>

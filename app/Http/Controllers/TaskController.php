@@ -9,6 +9,12 @@ use App\Http\Requests\TaskRequest;
 use App\Task;
 use App\User;
 
+use Illuminate\Database\Eloquent\Collection;
+
+use Illuminate\Pagination\Paginator;
+
+use Illuminate\Pagination\LengthAwarePaginator;
+
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
@@ -28,9 +34,23 @@ class TaskController extends Controller
             Task::where('id',$id)->update(array('status'=>1, 'completed_at'=>NULL));
         }
         
-        return redirect('/home');
+        return redirect('/task/show');
     }
-    
+
+    public function showTasks()
+    {
+        $key = request()->search ;
+        $id = Auth::user()->id;
+        $method = request()->method();
+        request()->session()->put('role', 'admin');
+        request()->session()->flash('msg','Welcome '.auth()->user()->name);
+        $tasks = User::findorFail($id)->task;
+        $tasks = $this->paginate($tasks,5);
+        $tasks->withPath('');
+        $param = 0 ;
+        return view('task-list', compact(['tasks','method','param']));
+    }
+
     public function showAddTask()
     {
         return view('task-add');
@@ -41,7 +61,7 @@ class TaskController extends Controller
         $task = Task::create($this->validateTask());
         $task->save();
         
-        return redirect('/home');
+        return redirect('/task/show');
     }
     
     public function showEditTask($id)
@@ -54,7 +74,7 @@ class TaskController extends Controller
     {
         $task->update($this->validateTask());
         $task->save();
-        return redirect('/home');
+        return redirect('/task/show');
     }
     
     public function deleteTask($id)
@@ -62,7 +82,7 @@ class TaskController extends Controller
         $task = Task::find($id);
         $task->delete();
         
-        return redirect('/home');
+        return redirect('/task/show');
     }
     
     public function validateTask()
@@ -84,7 +104,25 @@ class TaskController extends Controller
         $email = auth()->user()->email ;
         $tasks = Task::where('user_id', auth()->user()->id)->where('completed_at', NULL)->where('deleted_at', NULL)->get();
         \Mail::to($email)->send(new \App\Mail\MyMail($tasks));
-        return redirect('/home');
+        return redirect('/task/show');
+    }
+
+    public function paginate($items, $perPage = 15, $page = null, $baseUrl = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+
+        $items = $items instanceof Collection ?
+            $items : Collection::make($items);
+
+        $lap = new LengthAwarePaginator($items->forPage($page, $perPage),
+            $items->count(),
+            $perPage, $page, $options);
+
+        if ($baseUrl) {
+            $lap->setPath($baseUrl);
+        }
+
+        return $lap;
     }
     
 }

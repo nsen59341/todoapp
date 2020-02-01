@@ -21,11 +21,13 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::any('/home/{name_err_message?}', 'HomeController@index')->name('home')->middleware('verified');
+Route::any('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 Route::get('/home/{key}', 'HomeController@categorigeTask');
 
 Route::get('/statusChange/{var}/{id}', 'TaskController@changeTaskStatus');
+
+Route::get('/task/show/{name_err_message?}', 'TaskController@showTasks');
 
 Route::post('/task', 'TaskController@storeNewTask');
 
@@ -64,3 +66,8 @@ Route::post('/payment', 'PaymentController@store')->middleware('auth');
 
 Route::get('/notification', 'UserNotificationController@show')->middleware('auth');
 
+Route::resource('admin/users', 'UserAdminController');
+
+Route::get('/admin', function() {
+    return view('admin.users.index');
+});
