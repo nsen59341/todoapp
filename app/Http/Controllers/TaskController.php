@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 class TaskController extends Controller
 {
     public function __construct() {
-        $this->middleware('checkAge');
+        $this->middleware('auth');
     }
 
     public function changeTaskStatus($var, $id)
@@ -41,6 +41,26 @@ class TaskController extends Controller
     {
         $key = request()->search ;
         $id = Auth::user()->id;
+        $role = Auth::user()->role->name ;
+        $method = request()->method();
+        request()->session()->put('role', $role);
+        request()->session()->flash('msg','Welcome '.auth()->user()->name);
+        if( $method == "GET" ) {
+            $tasks = User::findorFail($id)->task;
+            $tasks = $this->paginate($tasks, 5);
+            $tasks->withPath('');
+        }
+        else {
+            $tasks = User::findorFail($id)->task->where('name','like', $key);
+        }
+        $param = 0 ;
+        return view('task-list', compact(['tasks','method','param']));
+    }
+
+    public function showTasksbckup()
+    {
+        $key = request()->search ;
+        $id = Auth::user()->id;
         $method = request()->method();
         request()->session()->put('role', 'admin');
         request()->session()->flash('msg','Welcome '.auth()->user()->name);
@@ -48,8 +68,26 @@ class TaskController extends Controller
         $tasks = $this->paginate($tasks,5);
         $tasks->withPath('');
         $param = 0 ;
+        return view('homebck', compact(['tasks','method','param']));
+    }
+
+    public function categorigeTask($key)
+    {
+        $id = auth()->user()->id ;
+        $method = request()->method() ;
+        if( !empty($key) )
+        {
+            $tasks = User::findorFail($id)->task->where('status', $key);
+        }
+        else {
+            $tasks = User::findorFail($id)->task;
+        }
+        $tasks = $this->paginate($tasks,5);
+        $tasks->withPath('');
+        $param = $key;
         return view('task-list', compact(['tasks','method','param']));
     }
+
 
     public function showAddTask()
     {

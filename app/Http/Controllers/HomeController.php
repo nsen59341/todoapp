@@ -55,24 +55,7 @@ class HomeController extends Controller
         return view('home', compact(['tasks','method','param']));
         
     }
-    
-    public function categorigeTask($key) 
-    {
-        $id = auth()->user()->id ;
-        $method = request()->method() ;
-        if( !empty($key) )
-        {
-            $tasks = User::findorFail($id)->task->where('status', $key);
-        }
-        else {
-            $tasks = User::findorFail($id)->task;
-        }
-        $tasks = $this->paginate($tasks,5);
-        $tasks->withPath('');
-        $param = $key;
-        return view('home', compact(['tasks','method','param']));
-    }
-  
+
     
     public function paginate($items, $perPage = 15, $page = null, $baseUrl = null, $options = [])
     {

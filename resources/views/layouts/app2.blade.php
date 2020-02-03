@@ -9,6 +9,7 @@
     <title>Todo List</title>
     <link href="{{ url('css/styles.css') }}" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
@@ -59,19 +60,17 @@
                         ></a>
                     <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth"
-                            >View Users
-                            </a>
-                            <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError"
-                            >Add new User
-                            </a>
+                            <a class="nav-link" href="{{ url('/user/show') }}">View Users</a>
+                            @if( Auth::user()->role->id == 1 )
+                                <a class="nav-link" href="{{ url('/user/add') }}">Add new User</a>
+                            @endif
                         </nav>
                     </div>
 
             </div>
             <div class="sb-sidenav-footer">
                 <div class="small">Logged in as:</div>
-                Start Bootstrap
+                {{ auth()->user()->role->name }}
             </div>
         </nav>
     </div>
@@ -81,7 +80,7 @@
 <footer class="py-4 bg-light mt-auto">
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">Copyright &copy; Your Website 2019</div>
+            <div class="text-muted">Copyright &copy; Your Website {{ date('Y') }}</div>
             <div>
                 <a href="#">Privacy Policy</a>
                 &middot;
@@ -92,7 +91,7 @@
 </footer>
 </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="{{ url('js/scripts.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

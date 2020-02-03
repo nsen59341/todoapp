@@ -3,14 +3,34 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="mt-4">Dashboard</h1>
-                <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
+                <h1 class="mt-4">Tasks</h1>
+
 
                 <div class="card mb-4">
-                    <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable Example</div>
+                    <div class="card-header"><i class="fas fa-table mr-1"></i>Task List</div>
                     <div class="card-body">
+                        <div class="text-left">
+                            <form method="post" action="{{ url('/task/show') }}">
+                                @csrf
+                                <input type="text" name="search" placeholder="search">
+                                <button style="cursor:pointer;" title="search" class="glyphicon glyphicon-search"></button>
+                            </form>
+                            <form align="center">
+                                <select name="category" id="category">
+                                    <option value="0">All Tasks</option>
+                                    <option value="1">Completed Tasks</option>
+                                    <option value="2">Pending Tasks</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-info btn-sm share-task" title="share task list">
+                                <span class="glyphicon glyphicon-share"></span>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm add-task" title="add a new task">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
@@ -66,18 +86,33 @@
                 </div>
             </div>
         </main>
-        <footer class="py-4 bg-light mt-auto">
-            <div class="container-fluid">
-                <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; Your Website {{ date('Y') }}</div>
-                    <div>
-                        <a href="#">Privacy Policy</a>
-                        &middot;
-                        <a href="#">Terms &amp; Conditions</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-    </div>
+
+
+    <script>
+
+        $(".add-task").click(function() {
+            location.href = "/task/add";
+        });
+
+        $(".share-task").click(function() {
+            location.href = "/task/share";
+        });
+
+        $("#category").change(function() {
+            var key = $(this).val();
+            location.href = "/task/show/"+key ;
+        });
+
+        $(document).ready(function() {
+            if( {{$param}} )
+            {
+                var key = {{$param}};
+                $("#category option[value="+key+"]").attr('selected',true);
+            }
+
+        });
+
+
+    </script>
+
 @endsection

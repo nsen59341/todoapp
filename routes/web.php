@@ -1,6 +1,7 @@
 <?php
 
 use App\Task;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -21,13 +22,17 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::any('/home', 'HomeController@index')->name('home')->middleware('verified');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
-Route::get('/home/{key}', 'HomeController@categorigeTask');
+//Route::get('/home/{key}', 'HomeController@categorigeTask');
 
 Route::get('/statusChange/{var}/{id}', 'TaskController@changeTaskStatus');
 
-Route::get('/task/show/{name_err_message?}', 'TaskController@showTasks');
+Route::get('/task/back', 'TaskController@showTasksbckup');
+
+Route::any('/task/show', 'TaskController@showTasks');
+
+Route::get('/task/show/{key}', 'TaskController@categorigeTask');
 
 Route::post('/task', 'TaskController@storeNewTask');
 
@@ -46,6 +51,13 @@ Route::get('/send-mail', 'TaskController@shareTask');
 Route::get('/user/edit/{id}', 'UserController@edit');
 
 Route::put('/user/{user}', 'UserController@update');
+
+Route::get('/user/show', 'UserController@showUsers');
+
+Route::get('/user/add', 'UserController@addUsers');
+
+Route::post('/user/add-new', 'UserController@addNewUser');
+
 
 Route::get('/logout', function() {
     Auth::logout();
