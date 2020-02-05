@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 use Illuminate\Pagination\Paginator;
 
+use Illuminate\Support\Facades\Session;
+
 use Illuminate\Pagination\LengthAwarePaginator;
 
 use Illuminate\Support\Facades\Auth;
@@ -98,6 +100,8 @@ class TaskController extends Controller
     {
         $task = Task::create($this->validateTask());
         $task->save();
+
+        Session::flash('task_added', 'The task has been succesfully added');
         
         return redirect('/task/show');
     }
@@ -112,6 +116,7 @@ class TaskController extends Controller
     {
         $task->update($this->validateTask());
         $task->save();
+        Session::flash('task_updated', 'The task has been succesfully updated');
         return redirect('/task/show');
     }
     
@@ -119,7 +124,7 @@ class TaskController extends Controller
     {
         $task = Task::find($id);
         $task->delete();
-        
+        Session::flash('task_deleted', 'The task has been succesfully deleted');
         return redirect('/task/show');
     }
     
@@ -142,6 +147,7 @@ class TaskController extends Controller
         $email = auth()->user()->email ;
         $tasks = Task::where('user_id', auth()->user()->id)->where('completed_at', NULL)->where('deleted_at', NULL)->get();
         \Mail::to($email)->send(new \App\Mail\MyMail($tasks));
+        Session::flash('task_shared', 'The task has been succesfully shared');
         return redirect('/task/show');
     }
 

@@ -3,9 +3,21 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
+                <p style="background-color:#2d995b;">
+                @if( \Illuminate\Support\Facades\Session::get('task_added') )
+                    {{ \Illuminate\Support\Facades\Session::get('task_added') }}
+                @endif
+                @if( \Illuminate\Support\Facades\Session::get('task_updated') )
+                    {{ \Illuminate\Support\Facades\Session::get('task_updated') }}
+                @endif
+                @if( \Illuminate\Support\Facades\Session::get('task_shared') )
+                    {{ \Illuminate\Support\Facades\Session::get('task_shared') }}
+                @endif
+                </p>
+                @if( \Illuminate\Support\Facades\Session::get('task_deleted') )
+                    <p style="background-color:#ac2925; color: #d4edda;">{{ \Illuminate\Support\Facades\Session::get('task_deleted') }}</p>
+                @endif
                 <h1 class="mt-4">Tasks</h1>
-
-
                 <div class="card mb-4">
                     <div class="card-header"><i class="fas fa-table mr-1"></i>Task List</div>
                     <div class="card-body">

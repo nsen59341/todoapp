@@ -4,9 +4,13 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
+                @if( \Illuminate\Support\Facades\Session::get('user_added') )
+                    <p style="background-color:#2d995b;">{{ \Illuminate\Support\Facades\Session::get('user_added') }}</p>
+                @endif
+                @if( \Illuminate\Support\Facades\Session::get('extension_error') )
+                    <p style="background-color:#ac2925; color: #d4edda;">{{ \Illuminate\Support\Facades\Session::get('extension_error') }}</p>
+                @endif
                 <h1 class="mt-4">Users</h1>
-
-
                 <div class="card mb-4">
                     <div class="card-header"><i class="fas fa-table mr-1"></i>Users List</div>
                     <div class="card-body">

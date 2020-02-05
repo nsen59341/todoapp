@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Http\File;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 use App\Http\Requests\UserRequest;
@@ -22,7 +23,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserController extends Controller
 {
-    
+
     public function edit($id)
     {
         $user = User::find($id) ;
@@ -80,6 +81,7 @@ class UserController extends Controller
             $users = User::get()->where('name','like', $key);
         }
         $param = 0 ;
+//        return $users;
         return view('user-show', compact(['users','method','param']));
     }
 
@@ -102,7 +104,7 @@ class UserController extends Controller
 
         if($request->file('photo'))
         {
-            $allowedfileExtensions = ['pdf','jpg','png'];
+            $allowedfileExtensions = ['jpg','png'];
             $file = $request->file('photo');
             $filename = $file->getClientOriginalName();
             $extension = $file->getClientOriginalExtension();
@@ -115,9 +117,14 @@ class UserController extends Controller
                 $input['profile_pic'] = $filename ;
                 $file->move('images', $filename);
             }
+            else {
+                Session::flash('extension_error', 'Not supported format for image');
+            }
+
 
         }
 
+        Session::flash('user_added', 'The user has been succesfully added');
 
         User::create($input);
 

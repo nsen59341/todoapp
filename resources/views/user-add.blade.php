@@ -43,8 +43,8 @@
                                 <div class="form-group col-sm-12">
                                     {!! Form::label('role', 'Role') !!}
                                     {!! Form::select('role_id', array('2'=>'User', '3'=>'Subscriber')) !!}
-                                    @error('role')
-                                    <p class="help is-danger">{{$errors->first('role')}}</p>
+                                    @error('role_id')
+                                    <p class="help is-danger">{{$errors->first('role_id')}}</p>
                                     @enderror
                                 </div>
 
