@@ -17,6 +17,7 @@
     <a class="navbar-brand" href="javascript:void(0);">Start listing</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
     >
     <!-- Navbar-->
+    @if(auth()->check())
     <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ url('images/' . auth()->user()->profile_pic) }}" height="40px" width="40px;"></a>
@@ -31,6 +32,7 @@
             </form>
         </li>
     </ul>
+    @endif
 </nav>
 <div id="layoutSidenav">
     <div id="layoutSidenav_nav">
@@ -61,17 +63,19 @@
                     <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                             <a class="nav-link" href="{{ url('/user/show') }}">View Users</a>
-                            @if( Auth::user()->role->id == 1 )
+                            @if( Auth::check()&& Auth::user()->role->id == 1 )
                                 <a class="nav-link" href="{{ url('/user/add') }}">Add new User</a>
                             @endif
                         </nav>
                     </div>
 
             </div>
-            <div class="sb-sidenav-footer">
-                <div class="small">Logged in as:</div>
-                {{ auth()->user()->role->name }}
-            </div>
+                @if(auth()->check())
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    {{ auth()->user()->role->name }}
+                </div>
+                @endif
         </nav>
     </div>
 

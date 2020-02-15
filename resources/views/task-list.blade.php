@@ -64,7 +64,7 @@
                                         <tr>
                                             <td>{{ $i }}</td>
                                             <td>{{ $task->name }}</td>
-                                            <td>{{ $task->description }}</td>
+                                            <td>{{ Str::limit($task->description, 16) }}</td>
                                             <td>@if($task->status == 1)
                                                     <a class="mark-completed" href="{{url('/statusChange/1/'.$task->id)}}"><span class="glyphicon glyphicon-ok"></span></a> &nbsp
                                                 @elseif($task->status == 2)

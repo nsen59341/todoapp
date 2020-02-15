@@ -22,6 +22,7 @@ class ComposerStaticInit92bd5b9a27e470c08ab3aae5bfedf155
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
+        'b4e3f29b106af37a2bb239f73cdf68c7' => __DIR__ . '/../..' . '/app/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -400,6 +401,7 @@ class ComposerStaticInit92bd5b9a27e470c08ab3aae5bfedf155
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\PaymentController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentController.php',
         'App\\Http\\Controllers\\TaskController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskController.php',
+        'App\\Http\\Controllers\\UserAdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserAdminController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Controllers\\UserNotificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserNotificationController.php',
         'App\\Http\\Controllers\\contactController' => __DIR__ . '/../..' . '/app/Http/Controllers/contactController.php',
@@ -407,12 +409,15 @@ class ComposerStaticInit92bd5b9a27e470c08ab3aae5bfedf155
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
+        'App\\Http\\Middleware\\IsAdmin' => __DIR__ . '/../..' . '/app/Http/Middleware/IsAdmin.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\RoleMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/RoleMiddleware.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Http\\Middleware\\checkAge' => __DIR__ . '/../..' . '/app/Http/Middleware/checkAge.php',
         'App\\Http\\Requests\\TaskRequest' => __DIR__ . '/../..' . '/app/Http/Requests/TaskRequest.php',
+        'App\\Http\\Requests\\UserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UserRequest.php',
         'App\\Mail\\ContactMe' => __DIR__ . '/../..' . '/app/Mail/ContactMe.php',
         'App\\Mail\\MyMail' => __DIR__ . '/../..' . '/app/Mail/MyMail.php',
         'App\\Mail\\VerifyMail' => __DIR__ . '/../..' . '/app/Mail/VerifyMail.php',

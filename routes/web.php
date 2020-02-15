@@ -58,6 +58,11 @@ Route::get('/user/add', 'UserController@addUsers');
 
 Route::post('/user/add-new', 'UserController@addNewUser');
 
+Route::get('/users/edit/{id}', 'UserController@editUser');
+
+Route::put('/users/{user}', 'UserController@updateUser');
+
+Route::get('/users/delete/{id}', 'UserController@deleteUser');
 
 Route::get('/logout', function() {
     Auth::logout();
@@ -78,7 +83,10 @@ Route::post('/payment', 'PaymentController@store')->middleware('auth');
 
 Route::get('/notification', 'UserNotificationController@show')->middleware('auth');
 
-Route::resource('admin/users', 'UserAdminController');
+
+Route::group(["middleware"=>"IsAdmin"], function() {
+    Route::resource('admin/users', 'UserAdminController');
+});
 
 Route::get('/admin', function() {
     return view('admin.users.index');

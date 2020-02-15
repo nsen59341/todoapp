@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','IsAdmin']);
+        $this->middleware('auth');
        
     }
 
@@ -36,23 +36,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $key = request()->search ;
-        $id = Auth::user()->id;
-        $method = request()->method();
-        request()->session()->put('role', 'admin');
-        request()->session()->flash('msg','Welcome '.auth()->user()->name);
-        if( $method == 'GET' )
-        {        
-            $tasks = User::findorFail($id)->task;
-            $tasks = $this->paginate($tasks,5);
-            $tasks->withPath('');
-            
-        }
-        else {
-            $tasks = User::findorFail($id)->task->where('name', 'like', $key);      
-        }
-        $param = 0 ;
-        return view('home', compact(['tasks','method','param']));
+        $admins = User::where('role_id',1)->count();
+        $users = User::where('role_id',2)->count();
+        $subscribers = User::where('role_id',3)->count();
+        $total_users = ($admins+$users+$subscribers);
+
+        $inCompleteTasks = Task::where('status',1)->count();
+        $completedTasks = Task::where('status',2)->count();
+        $total_tasks = ($inCompleteTasks+$completedTasks);
+
+        return view('home', compact(['admins','users','subscribers','total_users','inCompleteTasks','completedTasks','total_tasks']));
         
     }
 

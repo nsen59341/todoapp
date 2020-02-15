@@ -4,11 +4,16 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                @if( \Illuminate\Support\Facades\Session::get('user_added') )
-                    <p style="background-color:#2d995b;">{{ \Illuminate\Support\Facades\Session::get('user_added') }}</p>
-                @endif
-                @if( \Illuminate\Support\Facades\Session::get('extension_error') )
-                    <p style="background-color:#ac2925; color: #d4edda;">{{ \Illuminate\Support\Facades\Session::get('extension_error') }}</p>
+                <p style="background-color:#2d995b;">
+                    @if( \Illuminate\Support\Facades\Session::get('user_added') )
+                        {{ \Illuminate\Support\Facades\Session::get('user_added') }}
+                    @endif
+                    @if( \Illuminate\Support\Facades\Session::get('user_updated') )
+                        {{ \Illuminate\Support\Facades\Session::get('user_updated') }}
+                    @endif
+                </p>
+                @if( \Illuminate\Support\Facades\Session::get('user_deleted') )
+                    <p style="background-color:#ac2925; color: #d4edda;">{{ \Illuminate\Support\Facades\Session::get('user_deleted') }}</p>
                 @endif
                 <h1 class="mt-4">Users</h1>
                 <div class="card mb-4">
@@ -42,6 +47,8 @@
                                     <th>&nbsp</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>added at</th>
+                                    <th>updated at</th>
                                     <th>Role</th>
                                     @if( Auth::user()->role->id == 1 )
                                     <th>Action</th>
@@ -55,6 +62,8 @@
                                             <td><img src="{{ url('images/'.$user->profile_pic) }}" height="40px" width="40px"></td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
+                                            <td>{{ $user->created_at->diffForhumans() }}</td>
+                                            <td>{{ $user->updated_at->diffForhumans() }}</td>
                                             <td>{{ $user->role->name }}</td>
                                             @if( Auth::user()->role->id == 1 )
                                             <td>

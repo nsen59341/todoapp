@@ -24,6 +24,11 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class UserController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function edit($id)
     {
         $user = User::find($id) ;
@@ -124,9 +129,9 @@ class UserController extends Controller
 
         }
 
-        Session::flash('user_added', 'The user has been succesfully added');
-
         User::create($input);
+
+        Session::flash('user_added', 'The user has been succesfully added');
 
         return redirect('/user/show');
 
@@ -149,6 +154,49 @@ class UserController extends Controller
 
         return $lap;
     }
-   
-    
+
+    public function editUser($id)
+    {
+        $user = User::find($id);
+        return view('user-edit', ['user'=>$user]);
+    }
+
+    public function updateUser(User $user)
+    {
+        $user->update($this->validateUser());
+        if(request()->hasFile('photo'))
+        {
+            $allowedfileExtension=['pdf','jpg','png'];
+            $file = request()->file('photo');
+
+            $filename = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+
+            $chkin = in_array($extension, $allowedfileExtension);
+
+            if($chkin)
+            {
+                $user->update(['profile_pic'=>$filename]);
+
+//                request()->photo->storeAs('images', $filename);
+                $file->move('images', $filename);
+
+            }
+
+        }
+        Session::flash('user_updated', 'The user has been succesfully updated');
+        $user->save();
+        return redirect('/user/show');
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        unlink(public_path() . '/images/' . $user->profile_pic);
+        Session::flash('user_deleted', 'The user has been succesfully deleted');
+        return redirect('/user/show');
+    }
+
+
 }
