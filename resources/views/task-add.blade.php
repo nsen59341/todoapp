@@ -21,6 +21,13 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-sm-12">
+                                            {!! Form::label('category', 'Categoty') !!}
+                                            {!! Form::select('category_id', array('1'=>'marketing', '2'=>'household', '3'=>'job'), ['class'=>'form-control']) !!}
+                                            @error('category_id')
+                                            <p class="help is-danger">{{$errors->first('category_id')}}</p>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-sm-12">
                                             {!! Form::label('description', 'Description') !!}
                                             {!! Form::textarea('description', old('description'), ['class'=>'form-control', 'id'=>'description', 'required'=>true, 'placeholder'=>'Add Description...', 'rows'=>6]) !!}
                                             @error('description')

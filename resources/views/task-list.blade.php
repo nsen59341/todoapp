@@ -50,6 +50,7 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Description</th>
+                                    <th>Category</th>
                                     <th>Completed?</th>
                                     <th>Action</th>
                                     <th>Start date</th>
@@ -65,6 +66,7 @@
                                             <td>{{ $i }}</td>
                                             <td>{{ $task->name }}</td>
                                             <td>{{ Str::limit($task->description, 16) }}</td>
+                                            <td>{{ $task->category->name }}</td>
                                             <td>@if($task->status == 1)
                                                     <a class="mark-completed" href="{{url('/statusChange/1/'.$task->id)}}"><span class="glyphicon glyphicon-ok"></span></a> &nbsp
                                                 @elseif($task->status == 2)

@@ -64,6 +64,8 @@ Route::put('/users/{user}', 'UserController@updateUser');
 
 Route::get('/users/delete/{id}', 'UserController@deleteUser');
 
+Route::resource('category', 'CategoryController');
+
 Route::get('/logout', function() {
     Auth::logout();
     return redirect('/login');

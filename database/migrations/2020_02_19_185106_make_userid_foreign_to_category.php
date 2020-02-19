@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SoftDeleteTask extends Migration
+class MakeUseridForeignToCategory extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class SoftDeleteTask extends Migration
      */
     public function up()
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            
-            $table->softDeletes();
-            
+        Schema::table('categories', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -27,8 +25,8 @@ class SoftDeleteTask extends Migration
      */
     public function down()
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->dropSoftDeletes();
+        Schema::table('categories', function (Blueprint $table) {
+            //
         });
     }
 }

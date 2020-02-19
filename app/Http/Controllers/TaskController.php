@@ -56,6 +56,7 @@ class TaskController extends Controller
             $tasks = User::findorFail($id)->task->where('name','like', $key);
         }
         $param = 0 ;
+//        return $tasks;
         return view('task-list', compact(['tasks','method','param']));
     }
 
@@ -133,6 +134,7 @@ class TaskController extends Controller
         return request()->validate([
             'user_id' => 'required',
             'name' => 'required',
+            'category_id'=> 'required',
             'description' => 'required'
         ]);
     }
