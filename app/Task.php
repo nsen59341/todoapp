@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 use Illuminate\Database\Eloquent\SoftDeletes;   
 
 class Task extends Model
@@ -13,6 +14,7 @@ class Task extends Model
     
     protected $fillable = ['user_id', 'name', 'description', 'category_id'];
 
+   
     public function category()
     {
         return $this->belongsTo('App\Category');

@@ -8,6 +8,7 @@ use App\Http\Requests\TaskRequest;
 
 use App\Task;
 use App\User;
+use App\Category;
 
 use Illuminate\Database\Eloquent\Collection;
 
@@ -49,7 +50,7 @@ class TaskController extends Controller
         request()->session()->flash('msg','Welcome '.auth()->user()->name);
         if( $method == "GET" ) {
             $tasks = User::findorFail($id)->task;
-            $tasks = $this->paginate($tasks, 5);
+            $tasks = $this->paginate($tasks, 5)->setPageName('pg');
             $tasks->withPath('');
         }
         else {
@@ -94,7 +95,8 @@ class TaskController extends Controller
 
     public function showAddTask()
     {
-        return view('task-add');
+        $categories = Category::all();
+        return view('task-add', compact('categories'));
     }
     
     public function storeNewTask(TaskRequest $request)

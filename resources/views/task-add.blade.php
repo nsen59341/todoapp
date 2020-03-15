@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('includes.tinyeditor')
+
     <div id="layoutSidenav_content">
         <main>
             <div class="container">
@@ -21,15 +23,21 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-sm-12">
+                                            <?php $categories_array ; ?>
+                                            @foreach( $categories AS $category )
+                                                <?php 
+                                                   $categories_array[$category->id] = $category->name; 
+                                                ?>
+                                            @endforeach
                                             {!! Form::label('category', 'Categoty') !!}
-                                            {!! Form::select('category_id', array('1'=>'marketing', '2'=>'household', '3'=>'job'), ['class'=>'form-control']) !!}
+                                            {!! Form::select('category_id', $categories_array, ['class'=>'form-control']) !!}
                                             @error('category_id')
                                             <p class="help is-danger">{{$errors->first('category_id')}}</p>
                                             @enderror
                                         </div>
                                         <div class="form-group col-sm-12">
                                             {!! Form::label('description', 'Description') !!}
-                                            {!! Form::textarea('description', old('description'), ['class'=>'form-control', 'id'=>'description', 'required'=>true, 'placeholder'=>'Add Description...', 'rows'=>6]) !!}
+                                            {!! Form::textarea('description', old('description'), ['class'=>'form-control mytextarea', 'id'=>'description', 'required'=>true, 'placeholder'=>'Add Description...', 'rows'=>6]) !!}
                                             @error('description')
                                             <p class="help is-danger">{{$errors->first('description')}}</p>
                                             @enderror

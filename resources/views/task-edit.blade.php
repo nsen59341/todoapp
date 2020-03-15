@@ -29,7 +29,7 @@
                                     </div>
                                     <div class="form-group col-sm-12">
                                         {!! Form::label('description', 'Description') !!}
-                                        {!! Form::textarea('description', $task->description, ['class'=>'form-control', 'id'=>'description', 'required'=>true, 'placeholder'=>'Add Description...', 'rows'=>6]) !!}
+                                        {!! Form::textarea('description', $task->description, ['class'=>'form-control mytextarea', 'id'=>'description', 'required'=>true, 'placeholder'=>'Add Description...', 'rows'=>6]) !!}
                                         @error('description')
                                         <p class="help is-danger">{{$errors->first('description')}}</p>
                                         @enderror

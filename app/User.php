@@ -64,4 +64,15 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return false;
     }
+
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = strtolower($value);
+    }
+
+    public function getGravatarAttribute()
+    {
+        $hash = md5(strtolower(trim($this->attributes['email'])))."?d=mm&s=40px";
+        return "https://www.gravatar.com/avatar/".$hash;
+    }
 }

@@ -20,7 +20,7 @@
     @if(auth()->check())
     <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ url('images/' . auth()->user()->profile_pic) }}" height="40px" width="40px;"></a>
+            <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ auth()->user()->gravatar }}" height="40px" width="40px;"></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="/user/edit/{{ auth()->user()->id }}">Settings</a>
                 <a class="dropdown-item" href="#">Activity Log</a>

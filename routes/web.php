@@ -93,3 +93,9 @@ Route::group(["middleware"=>"IsAdmin"], function() {
 Route::get('/admin', function() {
     return view('admin.users.index');
 });
+
+Route::get('/imgUpload', function () {
+    return view('img-upload');
+});
+
+Route::post('/upload', 'MediaController@upload');
